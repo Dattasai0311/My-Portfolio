@@ -31,8 +31,15 @@ export const portfolioData = {
       id: 1,
       role: "Student Assistant",
       company: "CSUCI - Camarillo, CA",
-      period: "04/2024 - Present",
-      description: "Acted as Lead Student Assistant. Supported administrative staff and helped develop a departmental AI Chatbot using prompt engineering, reducing unnecessary emails by 35%."
+      period: "04/2024 - 12/2025",
+      description: "• Developed AI transcript analyzer (assist.org dataset) reducing manual review by 85%.\n• Built AI chatbot via prompt engineering, reducing departmental emails and calls by 35% in 4 months.\n• Managed 30+ daily student/staff inquiries via calls and email; supported recruitment of student assistants."
+    },
+    {
+      id: 2,
+      role: "ML Intern",
+      company: "Trillion IT Services Pvt Ltd - Hyderabad, India",
+      period: "01/2022 - 08/2023",
+      description: "• Built ML model integrated into client web app, increasing user engagement by 25%.\n• Developed AI-powered features using Python, FastAPI, and React; designed REST APIs for real-time predictions.\n• Automated data workflows and supported AWS deployment and CI/CD setup."
     }
   ],
   projects: [
