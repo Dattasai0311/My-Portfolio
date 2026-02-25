@@ -68,6 +68,20 @@ export const portfolioData = {
       ],
       gallery: ["/movie-rec-1.png", "/movie-rec-2.png", "/movie-rec-3.png"],
       image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2025&auto=format&fit=crop"
+    },
+    {
+      id: 3,
+      title: "Network Anomaly Detection System",
+      desc: "Intelligent full-stack monitoring application that identifies real-time network anomalies using unsupervised machine learning. Built with a Python Flask backend, ML-driven detection engine, and containerized deployment architecture.",
+      tech: ["Python", "Flask", "Scikit-Learn", "Pandas", "NumPy", "Docker", "Docker Compose", "Bcrypt"],
+      features: [
+        "Isolation Forest-based anomaly detection achieving 99.7% accuracy across multi-dimensional telemetry data (CPU, latency, throughput).",
+        "High-throughput processing engine evaluating 76,000+ requests/sec using Pandas and NumPy stress-testing pipelines.",
+        "Secure Flask REST API with bcrypt authentication and automated alerting (SNS-style trigger simulation at 80%+ threat confidence).",
+        "Docker & Docker Compose-based microservice deployment for isolated, zero-dependency execution."
+      ],
+      gallery: ["/NAD.png", "/NAD-1.png", "/NAD-2.png"],
+      image: "/NAD-cover.jpg"
     }
   ],
   contact: {
