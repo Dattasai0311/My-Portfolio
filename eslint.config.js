@@ -27,4 +27,10 @@ export default defineConfig([
       'react-hooks/unsupported-syntax': 'off',
     },
   },
+  {
+    files: ['api/**/*.js'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
 ])
