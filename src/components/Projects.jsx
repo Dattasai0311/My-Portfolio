@@ -6,6 +6,9 @@ import ProjectCard from "./projects/ProjectCard";
 import { portfolioData } from "../data/portfolio";
 
 const ProjectModal = ({ project, theme, onClose, onImageClick }) => {
+  const isProfessional = theme.name === "Executive Trust";
+  const modalTextClass = isProfessional ? "text-slate-800" : theme.text;
+  const modalSubtextClass = isProfessional ? "text-slate-700" : theme.textSecondary;
   const modalRef = useRef(null);
   const closeBtnRef = useRef(null);
   const lastFocusedRef = useRef(null);
@@ -83,7 +86,7 @@ const ProjectModal = ({ project, theme, onClose, onImageClick }) => {
           <X size={24} />
         </button>
 
-        <div className="relative h-64 md:h-80 w-full">
+        <div className="relative h-52 sm:h-64 md:h-80 w-full">
           <img
             src={project.image}
             alt={project.title}
@@ -107,22 +110,22 @@ const ProjectModal = ({ project, theme, onClose, onImageClick }) => {
           <div className="grid md:grid-cols-3 gap-10">
             <div className="md:col-span-2 space-y-8">
               <div>
-                <h3 className={`text-xl font-bold ${theme.text} mb-4 flex items-center gap-2`}>
+                <h3 className={`text-xl font-bold ${modalTextClass} mb-4 flex items-center gap-2`}>
                   <Layers size={20} className={theme.accent} /> Overview
                 </h3>
-                <p className={`${theme.textSecondary} leading-relaxed text-sm sm:text-base`}>
+                <p className={`${modalSubtextClass} leading-relaxed text-sm sm:text-base`}>
                   {project.details || project.desc}
                 </p>
               </div>
 
               {project.features && (
                 <div>
-                  <h3 className={`text-xl font-bold ${theme.text} mb-4 flex items-center gap-2`}>
+                  <h3 className={`text-xl font-bold ${modalTextClass} mb-4 flex items-center gap-2`}>
                     <Sparkles size={20} className={theme.accent} /> Key Features
                   </h3>
                   <ul className="space-y-3">
                     {project.features.map((feature, idx) => (
-                      <li key={idx} className={`flex items-start gap-3 ${theme.textSecondary}`}>
+                      <li key={idx} className={`flex items-start gap-3 ${modalSubtextClass}`}>
                         <span className={`mt-1.5 w-1.5 h-1.5 rounded-full ${theme.accentBg} shrink-0`} />
                         <span>{feature}</span>
                       </li>
@@ -133,8 +136,8 @@ const ProjectModal = ({ project, theme, onClose, onImageClick }) => {
 
               {project.gallery && (
                 <div>
-                  <h3 className={`text-xl font-bold ${theme.text} mb-4`}>Interface Gallery</h3>
-                  <div className="grid grid-cols-2 gap-4">
+                  <h3 className={`text-xl font-bold ${modalTextClass} mb-4`}>Interface Gallery</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {project.gallery.map((img, idx) => (
                       <img
                         key={idx}
@@ -155,12 +158,12 @@ const ProjectModal = ({ project, theme, onClose, onImageClick }) => {
                   theme.bg === "bg-gray-950" || theme.bg === "bg-black" ? "bg-white/5" : "bg-slate-50"
                 }`}
               >
-                <h4 className={`text-sm font-bold ${theme.text} uppercase tracking-wider mb-4`}>Tech Stack</h4>
+                <h4 className={`text-sm font-bold ${modalTextClass} uppercase tracking-wider mb-4`}>Tech Stack</h4>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className={`px-3 py-1 text-xs font-mono rounded-lg border ${theme.border} ${theme.textSecondary} bg-transparent`}
+                      className={`px-3 py-1 text-xs font-mono rounded-lg border ${theme.border} ${modalSubtextClass} bg-transparent`}
                     >
                       {t}
                     </span>
@@ -279,10 +282,10 @@ const Projects = ({ theme }) => {
 
   return (
     <section id="projects" className={`py-24 ${theme.text}`}>
-      <div className={`container mx-auto px-6 ${surface}`}>
+      <div className={`container mx-auto px-4 sm:px-6 ${surface}`}>
         <SectionHeader title="Featured Projects" theme={theme} />
 
-        <div className="relative flex items-center justify-center md:h-[640px] h-[560px] px-2 sm:px-4">
+        <div className="relative flex items-center justify-center md:h-[640px] h-auto min-h-[520px] px-1 sm:px-4">
           <button
             onClick={() => paginate(-1)}
             className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-blue-500 text-white shadow-lg items-center justify-center hover:scale-105 transition-transform"
@@ -291,7 +294,7 @@ const Projects = ({ theme }) => {
             <ChevronLeft size={24} />
           </button>
 
-          <div className="relative w-full flex items-center justify-center gap-4 sm:gap-8 overflow-hidden h-full">
+          <div className="relative w-full flex items-center justify-center gap-2 sm:gap-8 overflow-hidden h-full">
             <div className="hidden lg:block w-[35%] h-full">
               <motion.div
                 key={`prev-${projects[prevIndex].id}`}
@@ -305,7 +308,7 @@ const Projects = ({ theme }) => {
               </motion.div>
             </div>
 
-            <div className="w-full max-w-4xl h-full flex items-center justify-center px-2">
+            <div className="w-full max-w-4xl h-full flex items-center justify-center px-1 sm:px-2">
               <AnimatePresence initial={false} custom={direction} mode="wait">
                 <motion.div
                   key={projects[activeIndex].id}
@@ -401,10 +404,10 @@ const Projects = ({ theme }) => {
                     : prev
                 );
               }}
-              className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition flex"
+              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition flex"
               aria-label="Previous image"
             >
-              <ChevronLeft size={28} />
+              <ChevronLeft size={22} className="sm:w-7 sm:h-7" />
             </button>
             <motion.img
               key={`${lightbox.index}-${lightbox.images[lightbox.index]}`}
@@ -413,7 +416,7 @@ const Projects = ({ theme }) => {
               exit={{ scale: 0.95 }}
               src={lightbox.images[lightbox.index]}
               alt="Project preview"
-              className="max-h-[85vh] max-w-5xl w-auto object-contain rounded-2xl shadow-2xl"
+              className="max-h-[82vh] sm:max-h-[85vh] max-w-5xl w-auto object-contain rounded-2xl shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             />
             <button
@@ -428,10 +431,10 @@ const Projects = ({ theme }) => {
                     : prev
                 );
               }}
-              className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition flex"
+              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition flex"
               aria-label="Next image"
             >
-              <ChevronRight size={28} />
+              <ChevronRight size={22} className="sm:w-7 sm:h-7" />
             </button>
             <button
               onClick={() => setLightbox(null)}

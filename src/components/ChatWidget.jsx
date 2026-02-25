@@ -52,7 +52,7 @@ const ChatWidget = ({ theme }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 p-4 ${theme.accentBg} text-white rounded-full shadow-lg flex items-center justify-center`}
+        className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 p-3 md:p-4 ${theme.accentBg} text-white rounded-full shadow-lg flex items-center justify-center`}
       >
         {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
       </motion.button>
@@ -63,7 +63,7 @@ const ChatWidget = ({ theme }) => {
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            className={`fixed bottom-24 right-6 w-80 md:w-96 h-[500px] ${theme.cardBg} border ${theme.border} rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden`}
+            className={`fixed bottom-20 md:bottom-24 left-3 right-3 md:left-auto md:right-6 w-auto md:w-96 h-[70vh] md:h-[500px] ${theme.cardBg} border ${theme.border} rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden`}
           >
             <div
               className={`p-4 ${theme.name === "Executive Trust" ? "bg-slate-100" : "bg-gray-800"} border-b ${theme.border} flex items-center gap-3`}

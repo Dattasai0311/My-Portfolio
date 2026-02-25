@@ -31,7 +31,7 @@ const ProjectCard = ({ project, theme, onSelect, onImageClick }) => {
     <motion.div
       initial={false}
       animate={{ opacity: 1 }}
-      className={`group relative flex flex-col h-full min-h-[520px] md:min-h-[580px] rounded-2xl overflow-hidden border ${theme.border} ${theme.cardBg} shadow-2xl hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] transition-all duration-500 cursor-pointer w-full`}
+      className={`group relative flex flex-col h-full min-h-[500px] md:min-h-[580px] rounded-2xl overflow-hidden border ${theme.border} ${theme.cardBg} shadow-2xl hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] transition-all duration-500 cursor-pointer w-full`}
       onClick={() => onSelect && onSelect(project)}
       role="article"
       aria-label={`Project card for ${project.title}`}

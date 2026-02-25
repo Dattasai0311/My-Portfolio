@@ -88,9 +88,9 @@ export const portfolioData = {
     {
       id: 1,
       type: "badge",
-      title: "AWS - ML Foundations",
+      title: "ML Foundations",
       issuer: "AWS Academy",
-      date: "2024",
+      date: "2025",
       image: "/cert/aws-academy-graduate-machine-learning-foundations-t.png",
       skills:
         "SageMaker pipelines, Autopilot, Forecast, Rekognition, Comprehend, Polly, Translate, Lex, Amazon Q Developer (gen-AI)",
@@ -99,7 +99,7 @@ export const portfolioData = {
     {
       id: 2,
       type: "badge",
-      title: "AWS - Cloud Architecting",
+      title: "Cloud Architecting",
       issuer: "AWS Academy",
       date: "2024",
       image: "/cert/aws-academy-graduate-cloud-architecting-training-ba.png",
@@ -110,9 +110,9 @@ export const portfolioData = {
     {
       id: 3,
       type: "badge",
-      title: "Cisco - Data Analytics",
+      title: "Data Analytics",
       issuer: "Cisco Networking Academy",
-      date: "2024",
+      date: "2025",
       image: "/cert/data-analytics-essentials.png",
       skills: "Data Analysis, Data Storytelling, Data Visualization, Tableau, Dashboard, Excel, SQL",
       link: "https://www.credly.com/badges/42fb14ce-7089-4526-8d15-1137cf9577ff/public_url"
@@ -120,13 +120,24 @@ export const portfolioData = {
     {
       id: 4,
       type: "certificate",
-      title: "Cisco - IT Customer Support",
+      title: "IT Customer Support",
       issuer: "Cisco Networking Academy",
-      date: "2024",
+      date: "2025",
       image: "/cert/it-customer-support-basics.png",
       skills:
         "Customer Service, Effective Communication, Remote Troubleshooting, Documentation and Reporting, Help Desk, Concepts, Technical Problem Solving",
       link: "https://www.credly.com/badges/bcef1ffc-cf09-46c7-9d8b-a90af7eec8d2/public_url"
+    }
+  ],
+  pastPublications: [
+    {
+      id: 1,
+      title: "Usability of Chatbots",
+      venue: "ICCS (International Conference on Computing Sciences)",
+      year: "2023",
+      keywords:
+        "Usability, Natural language Processing, Search String Selection, Chatbot Usability Scale, Artificial Intelligence.",
+      link: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4488011"
     }
   ],
   contact: {

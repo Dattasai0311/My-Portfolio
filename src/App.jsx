@@ -7,6 +7,7 @@ import Hero from "./components/Hero";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import BadgesCertificates from "./components/BadgesCertificates";
+import PastPublications from "./components/PastPublications";
 import InlineAI from "./components/InlineAI";
 import ChatWidget from "./components/ChatWidget";
 import Footer from "./components/Footer";
@@ -51,7 +52,7 @@ export default function App() {
     >
       {phase === "site" && (
         <>
-          <div className={`pointer-events-none fixed inset-0 z-40 ${cursorBlendClass}`}>
+          <div className={`pointer-events-none fixed inset-0 z-40 hidden md:block ${cursorBlendClass}`}>
             <SplashCursor TRANSPARENT BACK_COLOR={cursorBack} />
           </div>
           <Nav theme={theme} />
@@ -59,6 +60,7 @@ export default function App() {
           <Experience theme={theme} />
           <Projects theme={theme} />
           <BadgesCertificates theme={theme} />
+          <PastPublications theme={theme} />
           <InlineAI theme={theme} />
           <Footer theme={theme} />
           <ChatWidget theme={theme} />
@@ -80,7 +82,7 @@ export default function App() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={toggleTheme}
-          className="fixed bottom-6 left-6 z-50 p-4 bg-white text-black rounded-full shadow-xl border border-gray-200 flex items-center gap-2 font-bold text-xs"
+          className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-50 p-3 md:p-4 bg-white text-black rounded-full shadow-xl border border-gray-200 flex items-center gap-2 font-bold text-[11px] md:text-xs"
           title="Switch Color Theme"
         >
           <Palette size={16} />

@@ -7,6 +7,8 @@ import { portfolioData } from "../data/portfolio";
 const BadgesCertificates = ({ theme }) => {
   const items = portfolioData.badgesAndCertificates || [];
   const isProfessional = theme.name === "Executive Trust";
+  const modalTextClass = isProfessional ? "text-slate-800" : theme.text;
+  const modalSubtextClass = isProfessional ? "text-slate-700" : theme.textSecondary;
   const [selected, setSelected] = useState(null);
   const modalRef = useRef(null);
   const closeBtnRef = useRef(null);
@@ -55,7 +57,7 @@ const BadgesCertificates = ({ theme }) => {
       id="badges-certificates"
       className={`py-24 ${isProfessional ? "bg-slate-100" : "bg-black"} ${theme.text}`}
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeader title="Badges and Certificates" theme={theme} />
 
         {items.length === 0 ? (
@@ -142,12 +144,12 @@ const BadgesCertificates = ({ theme }) => {
                 <div>
                   <div className="flex items-center gap-2 mb-3">
                     <Award size={18} className={theme.accent} />
-                    <h3 id="credential-modal-title" className={`text-lg sm:text-xl font-bold ${theme.text}`}>
+                    <h3 id="credential-modal-title" className={`text-lg sm:text-xl font-bold ${modalTextClass}`}>
                       {selected.title}
                     </h3>
                   </div>
 
-                  <div className={`text-sm ${theme.textSecondary} mb-4`}>
+                  <div className={`text-sm ${modalSubtextClass} mb-4`}>
                     {selected.issuer || "Issuer not specified"} {selected.date ? `• ${selected.date}` : ""}
                   </div>
 
@@ -159,8 +161,8 @@ const BadgesCertificates = ({ theme }) => {
                     />
                   </div>
 
-                  <h4 className={`font-semibold ${theme.text} mb-2`}>Skills Acquired</h4>
-                  <p className={`text-sm ${theme.textSecondary} mb-6`}>
+                  <h4 className={`font-semibold ${modalTextClass} mb-2`}>Skills Acquired</h4>
+                  <p className={`text-sm ${modalSubtextClass} mb-6`}>
                     {Array.isArray(selected.skills) ? selected.skills.join(", ") : selected.skills || "Not specified"}
                   </p>
 

@@ -68,22 +68,22 @@ const InlineAI = ({ theme }) => {
         </div>
 
         <div className="bg-black border border-gray-800 rounded-lg overflow-hidden shadow-2xl font-mono text-sm md:text-base">
-          <div className="bg-gray-800 px-4 py-2 flex items-center justify-between">
+          <div className="bg-gray-800 px-3 sm:px-4 py-2 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-red-500" />
               <div className="w-3 h-3 rounded-full bg-yellow-500" />
               <div className="w-3 h-3 rounded-full bg-green-500" />
-              <span className="ml-2 text-gray-400 text-xs">datta_portfolio_ai -- -bash</span>
+              <span className="ml-1 sm:ml-2 text-gray-400 text-[10px] sm:text-xs truncate">datta_portfolio_ai -- -bash</span>
             </div>
             <button
               onClick={startChallenge}
-              className="flex items-center gap-2 text-xs text-yellow-500 hover:text-yellow-400 transition-colors"
+              className="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-xs text-yellow-500 hover:text-yellow-400 transition-colors shrink-0"
             >
               <Sparkles size={12} /> Challenge Me
             </button>
           </div>
 
-          <div className="p-6 h-[400px] overflow-y-auto space-y-4">
+          <div className="p-4 sm:p-6 h-[360px] sm:h-[400px] overflow-y-auto space-y-4">
             <div className="text-gray-400">
               Last login: {new Date().toDateString()} on ttys001 <br />
               Gemini v1.5 [Connected] <br />

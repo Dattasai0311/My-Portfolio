@@ -10,7 +10,7 @@ const Hero = ({ theme }) => {
   return (
     <section
       id="about"
-      className={`relative min-h-screen flex flex-col items-center justify-center overflow-hidden ${theme.bg} pt-20 px-4 sm:px-6`}
+      className={`relative min-h-screen flex flex-col items-center justify-center overflow-hidden ${theme.bg} pt-24 sm:pt-20 px-4 sm:px-6`}
     >
       <div
         className={`absolute top-[-20%] left-[-10%] w-[400px] h-[400px] sm:w-[500px] sm:h-[500px] rounded-full blur-[120px] opacity-40 ${
@@ -23,7 +23,7 @@ const Hero = ({ theme }) => {
         }`}
       />
 
-      <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10 flex flex-col items-center text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
@@ -40,13 +40,13 @@ const Hero = ({ theme }) => {
             />
           </div>
 
-          <h2 className={`text-xl sm:text-2xl md:text-3xl font-bold ${theme.textSecondary} tracking-wide`}>
+          <h2 className={`text-lg sm:text-2xl md:text-3xl font-bold ${theme.textSecondary} tracking-wide`}>
             {portfolioData.name}
           </h2>
         </motion.div>
 
-        <div className="h-28 sm:h-32 md:h-48 flex flex-col items-center justify-start">
-          <h1 className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold ${theme.text} leading-tight mb-6`}>
+        <div className="min-h-[120px] sm:h-32 md:h-48 flex flex-col items-center justify-start">
+          <h1 className={`text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold ${theme.text} leading-tight mb-6`}>
             <TypewriterText text="Architecting" delay={1.5} /> <br />
             <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.gradient}`}>
               <CyclingTypewriter
@@ -68,15 +68,15 @@ const Hero = ({ theme }) => {
           >
             Available for Hire
           </div>
-          <p className={`${theme.textSecondary} text-lg mb-8`}>{portfolioData.bio}</p>
+          <p className={`${theme.textSecondary} text-base sm:text-lg mb-8`}>{portfolioData.bio}</p>
 
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full sm:w-auto">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`px-6 py-3 ${
                 theme.bg === "bg-slate-50" ? "bg-slate-900 text-white" : "bg-white text-black"
-              } font-bold rounded-lg flex items-center gap-2`}
+              } font-bold rounded-lg flex items-center justify-center gap-2 w-full sm:w-auto`}
               onClick={() =>
                 document.getElementById("projects").scrollIntoView({ behavior: "smooth" })
               }
@@ -86,7 +86,7 @@ const Hero = ({ theme }) => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-6 py-3 border ${theme.border} ${theme.text} font-bold rounded-lg hover:bg-white/5 transition-colors`}
+              className={`px-6 py-3 border ${theme.border} ${theme.text} font-bold rounded-lg hover:bg-white/5 transition-colors w-full sm:w-auto`}
               onClick={() =>
                 document.getElementById("chat-section").scrollIntoView({ behavior: "smooth" })
               }
