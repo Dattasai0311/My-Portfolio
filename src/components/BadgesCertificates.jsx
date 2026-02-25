@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Award, ExternalLink, X } from "lucide-react";
 import SectionHeader from "./SectionHeader";
@@ -8,6 +8,47 @@ const BadgesCertificates = ({ theme }) => {
   const items = portfolioData.badgesAndCertificates || [];
   const isProfessional = theme.name === "Executive Trust";
   const [selected, setSelected] = useState(null);
+  const modalRef = useRef(null);
+  const closeBtnRef = useRef(null);
+  const lastFocusedRef = useRef(null);
+
+  useEffect(() => {
+    if (!selected) return undefined;
+    lastFocusedRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+
+    const focusFirst = () => closeBtnRef.current?.focus();
+    const timer = window.setTimeout(focusFirst, 0);
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setSelected(null);
+        return;
+      }
+      if (e.key !== "Tab" || !modalRef.current) return;
+
+      const focusable = modalRef.current.querySelectorAll(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("keydown", handleKeyDown);
+      lastFocusedRef.current?.focus();
+    };
+  }, [selected]);
 
   return (
     <section
@@ -50,6 +91,8 @@ const BadgesCertificates = ({ theme }) => {
                   loading="lazy"
                 />
                 <h3 className={`text-sm md:text-base font-bold ${theme.text} mt-3 text-center`}>{item.title}</h3>
+                <p className={`text-xs ${theme.textSecondary} text-center mt-1`}>{item.issuer}</p>
+                <p className={`text-[11px] font-mono ${theme.textSecondary} text-center mt-1`}>{item.date}</p>
               </motion.button>
             ))}
           </div>
@@ -64,17 +107,22 @@ const BadgesCertificates = ({ theme }) => {
             exit={{ opacity: 0 }}
             onClick={() => setSelected(null)}
             className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md p-4 flex items-center justify-center"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="credential-modal-title"
           >
             <motion.div
+              ref={modalRef}
               initial={{ opacity: 0, y: 20, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.98 }}
               onClick={(e) => e.stopPropagation()}
               className={`w-full max-w-4xl rounded-2xl border ${theme.border} ${
                 isProfessional ? "bg-white/45 border-white/50" : "bg-slate-900/45 border-white/20"
-              } backdrop-blur-2xl p-6 md:p-8 relative shadow-[0_20px_60px_rgba(0,0,0,0.45)]`}
+              } backdrop-blur-2xl p-4 sm:p-6 md:p-8 relative shadow-[0_20px_60px_rgba(0,0,0,0.45)] max-h-[90vh] overflow-y-auto`}
             >
               <button
+                ref={closeBtnRef}
                 onClick={() => setSelected(null)}
                 className="absolute top-4 right-4 p-2 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors"
                 aria-label="Close badge details"
@@ -82,7 +130,7 @@ const BadgesCertificates = ({ theme }) => {
                 <X size={18} />
               </button>
 
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                 <div>
                   <img
                     src={selected.image}
@@ -94,14 +142,16 @@ const BadgesCertificates = ({ theme }) => {
                 <div>
                   <div className="flex items-center gap-2 mb-3">
                     <Award size={18} className={theme.accent} />
-                    <h3 className={`text-xl font-bold ${theme.text}`}>{selected.title}</h3>
+                    <h3 id="credential-modal-title" className={`text-lg sm:text-xl font-bold ${theme.text}`}>
+                      {selected.title}
+                    </h3>
                   </div>
 
                   <div className={`text-sm ${theme.textSecondary} mb-4`}>
                     {selected.issuer || "Issuer not specified"} {selected.date ? `• ${selected.date}` : ""}
                   </div>
 
-                  <div className={`w-24 rounded-lg border ${theme.border} p-1 mb-4`}>
+                  <div className={`w-20 sm:w-24 rounded-lg border ${theme.border} p-1 mb-4`}>
                     <img
                       src={selected.image}
                       alt={`${selected.title} thumbnail`}
@@ -114,18 +164,20 @@ const BadgesCertificates = ({ theme }) => {
                     {Array.isArray(selected.skills) ? selected.skills.join(", ") : selected.skills || "Not specified"}
                   </p>
 
-                  <a
-                    href={selected.link || "#"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-opacity ${
-                      selected.link
-                        ? `${theme.accentBg} text-white hover:opacity-90`
-                        : "bg-gray-500/40 text-gray-200 pointer-events-none"
-                    }`}
-                  >
-                    Verify Authenticity <ExternalLink size={14} />
-                  </a>
+                  <div className="sticky bottom-0 pt-3 bg-gradient-to-t from-black/20 to-transparent">
+                    <a
+                      href={selected.link || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-opacity ${
+                        selected.link
+                          ? `${theme.accentBg} text-white hover:opacity-90`
+                          : "bg-gray-500/40 text-gray-200 pointer-events-none"
+                      }`}
+                    >
+                      Verify Authenticity <ExternalLink size={14} />
+                    </a>
+                  </div>
                 </div>
               </div>
             </motion.div>

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Layers, Sparkles, X } from "lucide-react";
 import SectionHeader from "./SectionHeader";
@@ -6,6 +6,45 @@ import ProjectCard from "./projects/ProjectCard";
 import { portfolioData } from "../data/portfolio";
 
 const ProjectModal = ({ project, theme, onClose, onImageClick }) => {
+  const modalRef = useRef(null);
+  const closeBtnRef = useRef(null);
+  const lastFocusedRef = useRef(null);
+
+  useEffect(() => {
+    if (!project) return undefined;
+    lastFocusedRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const timer = window.setTimeout(() => closeBtnRef.current?.focus(), 0);
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab" || !modalRef.current) return;
+
+      const focusable = modalRef.current.querySelectorAll(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("keydown", handleKeyDown);
+      lastFocusedRef.current?.focus();
+    };
+  }, [project, onClose]);
+
   if (!project) return null;
 
   const openImages = (imagesArray, startIndex = 0) => {
@@ -21,8 +60,12 @@ const ProjectModal = ({ project, theme, onClose, onImageClick }) => {
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-md"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="project-modal-title"
     >
       <motion.div
+        ref={modalRef}
         initial={{ opacity: 0, scale: 0.9, y: 50 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 50 }}
@@ -32,8 +75,10 @@ const ProjectModal = ({ project, theme, onClose, onImageClick }) => {
         } backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.45)] relative scrollbar-hide`}
       >
         <button
+          ref={closeBtnRef}
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors z-10"
+          aria-label="Close project details"
         >
           <X size={24} />
         </button>
@@ -52,18 +97,22 @@ const ProjectModal = ({ project, theme, onClose, onImageClick }) => {
                 Project Details
               </span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white">{project.title}</h2>
+            <h2 id="project-modal-title" className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+              {project.title}
+            </h2>
           </div>
         </div>
 
-        <div className="p-6 md:p-10">
+        <div className="p-4 sm:p-6 md:p-10">
           <div className="grid md:grid-cols-3 gap-10">
             <div className="md:col-span-2 space-y-8">
               <div>
                 <h3 className={`text-xl font-bold ${theme.text} mb-4 flex items-center gap-2`}>
                   <Layers size={20} className={theme.accent} /> Overview
                 </h3>
-                <p className={`${theme.textSecondary} leading-relaxed`}>{project.details || project.desc}</p>
+                <p className={`${theme.textSecondary} leading-relaxed text-sm sm:text-base`}>
+                  {project.details || project.desc}
+                </p>
               </div>
 
               {project.features && (
@@ -148,6 +197,66 @@ const Projects = ({ theme }) => {
   const [direction, setDirection] = useState(0);
   const [selectedProject, setSelectedProject] = useState(null);
   const [lightbox, setLightbox] = useState(null); // { images: string[], index: number }
+  const lightboxRef = useRef(null);
+  const lightboxLastFocusedRef = useRef(null);
+
+  useEffect(() => {
+    if (!lightbox) return undefined;
+    lightboxLastFocusedRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const timer = window.setTimeout(() => lightboxRef.current?.focus(), 0);
+
+    const handleLightboxKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setLightbox(null);
+        return;
+      }
+      if (e.key === "ArrowLeft") {
+        setLightbox((prev) =>
+          prev
+            ? {
+                images: prev.images,
+                index: (prev.index - 1 + prev.images.length) % prev.images.length
+              }
+            : prev
+        );
+        return;
+      }
+      if (e.key === "ArrowRight") {
+        setLightbox((prev) =>
+          prev
+            ? {
+                images: prev.images,
+                index: (prev.index + 1) % prev.images.length
+              }
+            : prev
+        );
+        return;
+      }
+      if (e.key !== "Tab" || !lightboxRef.current) return;
+
+      const focusable = lightboxRef.current.querySelectorAll(
+        'button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleLightboxKeyDown);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("keydown", handleLightboxKeyDown);
+      lightboxLastFocusedRef.current?.focus();
+    };
+  }, [lightbox]);
 
   const nextIndex = (activeIndex + 1) % projects.length;
   const prevIndex = (activeIndex - 1 + projects.length) % projects.length;
@@ -192,7 +301,7 @@ const Projects = ({ theme }) => {
                 transition={{ duration: 0.4 }}
                 style={{ filter: "blur(6px)" }}
               >
-                <ProjectCard project={projects[prevIndex]} index={-1} theme={theme} />
+                <ProjectCard project={projects[prevIndex]} theme={theme} />
               </motion.div>
             </div>
 
@@ -217,7 +326,6 @@ const Projects = ({ theme }) => {
                 >
                   <ProjectCard
                     project={projects[activeIndex]}
-                    index={0}
                     theme={theme}
                     onSelect={setSelectedProject}
                     onImageClick={(images, idx) => setLightbox({ images, index: idx })}
@@ -237,7 +345,6 @@ const Projects = ({ theme }) => {
               >
                 <ProjectCard
                   project={projects[nextIndex]}
-                  index={1}
                   theme={theme}
                   onSelect={setSelectedProject}
                   onImageClick={(images, idx) => setLightbox({ images, index: idx })}
@@ -271,36 +378,15 @@ const Projects = ({ theme }) => {
       <AnimatePresence>
         {lightbox && Array.isArray(lightbox.images) && lightbox.images.length > 0 && (
           <motion.div
+            ref={lightboxRef}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[90] bg-black/50 backdrop-blur-md flex items-center justify-center p-4"
             onClick={() => setLightbox(null)}
             role="dialog"
+            aria-modal="true"
             aria-label="Project image viewer"
-            onKeyDown={(e) => {
-              if (e.key === "Escape") setLightbox(null);
-              if (e.key === "ArrowLeft") {
-                setLightbox((prev) =>
-                  prev
-                    ? {
-                        images: prev.images,
-                        index: (prev.index - 1 + prev.images.length) % prev.images.length
-                      }
-                    : prev
-                );
-              }
-              if (e.key === "ArrowRight") {
-                setLightbox((prev) =>
-                  prev
-                    ? {
-                        images: prev.images,
-                        index: (prev.index + 1) % prev.images.length
-                      }
-                    : prev
-                );
-              }
-            }}
             tabIndex={0}
           >
             <button

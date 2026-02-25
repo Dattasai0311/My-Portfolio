@@ -4,7 +4,7 @@ import { Code, Sparkles, Bot, Loader2 } from "lucide-react";
 import { callGeminiAPI } from "../../utils/ai";
 
 // Single project tile; keeps AI analysis inline and bubbles image clicks to the lightbox
-const ProjectCard = ({ project, index, theme, onSelect, onImageClick }) => {
+const ProjectCard = ({ project, theme, onSelect, onImageClick }) => {
   const [aiAnalysis, setAiAnalysis] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 

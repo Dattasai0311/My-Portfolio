@@ -33,7 +33,7 @@ const ChatWidget = ({ theme }) => {
     try {
       const response = await callGeminiAPI(userMsg);
       setMessages((prev) => [...prev, { role: "ai", text: response }]);
-    } catch (err) {
+    } catch (_err) {
       setMessages((prev) => [
         ...prev,
         { role: "ai", text: "Sorry, I'm having trouble connecting to the server." }

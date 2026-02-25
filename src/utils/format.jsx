@@ -1,4 +1,4 @@
-export const parseBold = (text) => {
+const parseBold = (text) => {
   return text.split(/(\*\*.*?\*\*)/g).map((chunk, idx) => {
     if (chunk.startsWith("**") && chunk.endsWith("**")) {
       return (

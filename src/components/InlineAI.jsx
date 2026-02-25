@@ -21,7 +21,7 @@ const InlineAI = ({ theme }) => {
     try {
       const response = await callGeminiAPI(userMsg);
       setMessages((prev) => [...prev, { role: "ai", text: response }]);
-    } catch (err) {
+    } catch (_err) {
       setMessages((prev) => [...prev, { role: "ai", text: "Connection failed." }]);
     } finally {
       setIsTyping(false);
