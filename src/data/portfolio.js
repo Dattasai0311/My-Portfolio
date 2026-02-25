@@ -84,6 +84,51 @@ export const portfolioData = {
       image: "/NAD-cover.jpg"
     }
   ],
+  badgesAndCertificates: [
+    {
+      id: 1,
+      type: "badge",
+      title: "AWS - ML Foundations",
+      issuer: "AWS Academy",
+      date: "2024",
+      image: "/cert/aws-academy-graduate-machine-learning-foundations-t.png",
+      skills:
+        "SageMaker pipelines, Autopilot, Forecast, Rekognition, Comprehend, Polly, Translate, Lex, Amazon Q Developer (gen-AI)",
+      link: "https://www.credly.com/earner/earned/badge/1fc79f81-df10-4f9a-a733-4199737b4b55"
+    },
+    {
+      id: 2,
+      type: "badge",
+      title: "AWS - Cloud Architecting",
+      issuer: "AWS Academy",
+      date: "2024",
+      image: "/cert/aws-academy-graduate-cloud-architecting-training-ba.png",
+      skills:
+        "S3, IAM, Lambda, API Gateway, DynamoDB, Elastic Beanstalk, ECS, ElastiCache, CloudFront, SNS/SQS, Kinesis, CI/CD (CloudFormation, SAM)",
+      link: "https://www.credly.com/earner/earned/badge/5bbedbfc-16e4-4a0b-b48f-c34978548496"
+    },
+    {
+      id: 3,
+      type: "badge",
+      title: "Cisco - Data Analytics",
+      issuer: "Cisco Networking Academy",
+      date: "2024",
+      image: "/cert/data-analytics-essentials.png",
+      skills: "Data Analysis, Data Storytelling, Data Visualization, Tableau, Dashboard, Excel, SQL",
+      link: "https://www.credly.com/badges/42fb14ce-7089-4526-8d15-1137cf9577ff/public_url"
+    },
+    {
+      id: 4,
+      type: "certificate",
+      title: "Cisco - IT Customer Support",
+      issuer: "Cisco Networking Academy",
+      date: "2024",
+      image: "/cert/it-customer-support-basics.png",
+      skills:
+        "Customer Service, Effective Communication, Remote Troubleshooting, Documentation and Reporting, Help Desk, Concepts, Technical Problem Solving",
+      link: "https://www.credly.com/badges/bcef1ffc-cf09-46c7-9d8b-a90af7eec8d2/public_url"
+    }
+  ],
   contact: {
     email: "vinjamuri.dsa1@gmail.com",
     location: "Camarillo, CA 93010",

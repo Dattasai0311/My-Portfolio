@@ -19,7 +19,7 @@ const ProjectModal = ({ project, theme, onClose, onImageClick }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-md"
       onClick={onClose}
     >
       <motion.div
@@ -27,7 +27,9 @@ const ProjectModal = ({ project, theme, onClose, onImageClick }) => {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 50 }}
         onClick={(e) => e.stopPropagation()}
-        className={`w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl ${theme.cardBg} border ${theme.border} shadow-2xl relative scrollbar-hide`}
+        className={`w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl border ${
+          theme.name === "Executive Trust" ? "bg-white/45 border-white/50" : "bg-slate-900/45 border-white/20"
+        } backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.45)] relative scrollbar-hide`}
       >
         <button
           onClick={onClose}
@@ -272,7 +274,7 @@ const Projects = ({ theme }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[90] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+            className="fixed inset-0 z-[90] bg-black/50 backdrop-blur-md flex items-center justify-center p-4"
             onClick={() => setLightbox(null)}
             role="dialog"
             aria-label="Project image viewer"

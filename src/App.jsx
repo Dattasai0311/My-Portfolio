@@ -6,6 +6,7 @@ import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
+import BadgesCertificates from "./components/BadgesCertificates";
 import InlineAI from "./components/InlineAI";
 import ChatWidget from "./components/ChatWidget";
 import Footer from "./components/Footer";
@@ -57,6 +58,7 @@ export default function App() {
           <Hero theme={theme} />
           <Experience theme={theme} />
           <Projects theme={theme} />
+          <BadgesCertificates theme={theme} />
           <InlineAI theme={theme} />
           <Footer theme={theme} />
           <ChatWidget theme={theme} />
