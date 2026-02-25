@@ -416,7 +416,7 @@ const Projects = ({ theme }) => {
               exit={{ scale: 0.95 }}
               src={lightbox.images[lightbox.index]}
               alt="Project preview"
-              className="max-h-[82vh] sm:max-h-[85vh] max-w-5xl w-auto object-contain rounded-2xl shadow-2xl"
+              className="w-full max-w-[90vw] sm:max-w-5xl max-h-[72vh] sm:max-h-[85vh] object-contain rounded-2xl shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             />
             <button
