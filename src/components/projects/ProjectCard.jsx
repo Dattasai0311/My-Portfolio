@@ -41,7 +41,7 @@ const ProjectCard = ({ project, theme, onSelect, onImageClick }) => {
         <motion.img
           src={project.image}
           alt={project.title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain sm:object-cover bg-black/20"
           loading="lazy"
           width="800"
           height="320"
